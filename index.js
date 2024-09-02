@@ -5,12 +5,16 @@ const Registeruser = require('./model');
 const jwt = require('jsonwebtoken');
 const middleware = require('./middleware');
 const cors = require('cors');
+
+const dotEnv = require('dotenv');
 const app = express();
 
 
 mongoose.connect( "mongodb+srv://hynda:bharg@cluster0.tmwop.mongodb.net/man?retryWrites=true&w=majority&appName=Cluster0").then(
     ()=>console.log('DB Connection established')
 )
+dotEnv.config()
+mongoose.connect(process.env.MANGU_URL)
 
 app.use(express.json());
 app.use(cors({origin:"*"}))
@@ -88,3 +92,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT,()=>{
     console.log('Server running...')
 })
+
+
+
+
